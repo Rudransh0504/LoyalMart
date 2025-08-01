@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Rewards | LoyalMart</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html {
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .theme-dark {
+      background: linear-gradient(to right, #0d1117, #1e3a8a);
+      color: #ffc220;
+      background-image:
+        linear-gradient(to right, #0d1117, #1e3a8a),
+        repeating-linear-gradient(135deg, rgba(255, 221, 77, 0.07) 0px, rgba(255, 221, 77, 0.07) 2px, transparent 2px, transparent 24px);
+      background-blend-mode: lighten;
+    }
+    .theme-light {
+      background: linear-gradient(120deg, #f4f6fa 0%, #e5e7eb 100%);
+      color: #000;
+      background-image:
+        linear-gradient(120deg, #f4f6fa 0%, #e5e7eb 100%),
+        repeating-radial-gradient(circle, #d1d5db 0, #d1d5db 1.5px, transparent 1.5px, transparent 28px);
+      background-blend-mode: lighten;
+    }
+    .theme-dark .rewards-card {
+      background-color: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .theme-light .rewards-card {
+      background-color: rgba(0, 0, 0, 0.03);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    .rewards-card {
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+    .theme-dark .rewards-card h2 {
+      color: #ffc220;
+    }
+    .theme-light .rewards-card h2 {
+      color: #000;
+    }
+    .theme-dark table thead {
+      color: #ffc220;
+    }
+    .theme-light table thead {
+      color: #000;
+    }
+    .theme-light table tbody tr {
+      background-color: rgba(0, 0, 0, 0.02);
+    }
+  </style>
+</head>
+<body class="min-h-screen font-sans flex flex-col items-center px-4 py-10 transition-all duration-500">
+
+  <!-- Header -->
+  <div class="w-full max-w-5xl flex flex-col items-center mb-6">
+   
+    <div class="self-end mb-2">
+      <a href="index.html" class="text-sm bg-yellow-400 text-black px-4 py-2 rounded hover:bg-yellow-300 font-semibold">Back to Dashboard</a>
+    </div>
+  </div>
+
+  <!-- Title -->
+  <h1 class="text-3xl font-bold mb-6">My Redeemed Rewards</h1>
+
+  <!-- Rewards Table Card -->
+  <div class="w-full max-w-4xl rewards-card overflow-x-auto">
+    <h2 class="text-xl font-semibold mb-4">Redemption History</h2>
+    <table class="w-full table-auto text-left text-sm md:text-base">
+      <thead class="border-b border-yellow-400">
+        <tr>
+          <th class="pb-2">Reward</th>
+          <th class="pb-2">Points Used</th>
+          <th class="pb-2">Date Redeemed</th>
+          <th class="pb-2">Status</th>
+        </tr>
+      </thead>
+      <tbody id="historyTable">
+        <!-- Filled dynamically by JavaScript -->
+      </tbody>
+
+    </table>
+  </div>
+
+  <!-- Footer -->
+  <footer class="w-full text-center py-4 font-semibold mt-12 shadow-inner" style="background:transparent;backdrop-filter:blur(0);color:inherit;">
+    &copy; LoyalMart 2025.All rights reserved
+  </footer>
+
+  <!-- Apply saved theme -->
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('theme') || 'theme-dark';
+      document.documentElement.classList.add(savedTheme);
+    });
+  </script>
+  <script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const savedTheme = localStorage.getItem('theme') || 'theme-dark';
+    document.documentElement.classList.add(savedTheme);
+
+    renderRedemptionTable();
+  });
+
+  function renderRedemptionTable() {
+    const tableBody = document.getElementById('historyTable');
+    const history = JSON.parse(localStorage.getItem("redemptionHistory")) || [];
+
+    if (history.length === 0) {
+      tableBody.innerHTML = `
+        <tr>
+          <td colspan="4" class="text-center py-6 text-gray-400">No redemptions yet.</td>
+        </tr>
+      `;
+      return;
+    }
+
+    tableBody.innerHTML = history.map(entry => `
+      <tr class="border-b border-gray-600">
+        <td class="py-3">${entry.name}</td>
+        <td class="py-3 font-semibold text-yellow-400">${entry.cost}</td>
+        <td class="py-3">${entry.time}</td>
+        <td class="py-3 text-green-400 font-medium">Claimed</td>
+      </tr>
+    `).join('');
+  }
+</script>
+
+</body>
+</html>

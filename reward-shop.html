@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reward Shop | LoyalMart</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html {
+      transition: background-color 0.4s ease, color 0.4s ease;
+    }
+    .theme-dark {
+      background: linear-gradient(to right, #0d1117, #1e3a8a);
+      color: #ffc220;
+      background-image:
+        linear-gradient(to right, #0d1117, #1e3a8a),
+        repeating-linear-gradient(135deg, rgba(255, 221, 77, 0.07) 0px, rgba(255, 221, 77, 0.07) 2px, transparent 2px, transparent 24px);
+      background-blend-mode: lighten;
+    }
+    .theme-light {
+      background: linear-gradient(120deg, #f4f6fa 0%, #e5e7eb 100%);
+      color: #000;
+      background-image:
+        linear-gradient(120deg, #f4f6fa 0%, #e5e7eb 100%),
+        repeating-radial-gradient(circle, #d1d5db 0, #d1d5db 1.5px, transparent 1.5px, transparent 28px);
+      background-blend-mode: lighten;
+    }
+    .reward-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .reward-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+    .theme-dark .reward-card {
+      background-color: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .theme-light .reward-card {
+      background-color: rgba(0, 0, 0, 0.03);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    .theme-dark .reward-card h3 {
+      color: #ffc220;
+    }
+    .theme-light .reward-card h3 {
+      color: #000;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col items-center px-4 py-10 font-sans transition-all duration-500">
+
+  <!-- Header -->
+  <div class="w-full max-w-6xl flex flex-col items-center mb-6">
+   
+    <div class="self-end">
+      <a href="index.html" class="text-sm bg-yellow-400 text-black px-4 py-2 rounded hover:bg-yellow-300 font-semibold transition">Back to Dashboard</a>
+    </div>
+  </div>
+
+  <!-- Page Title -->
+  <h1 class="text-3xl font-bold mb-8">Reward Shop</h1>
+
+  <!-- Rewards Grid -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl">
+    <!-- Reward Item 1 -->
+    <div class="reward-card p-6 rounded-xl">
+      <h3 class="text-xl font-semibold mb-2">🎁 $5 Gift Card</h3>
+      <p class="text-sm mb-3">Redeemable at any Walmart store or online.</p>
+      <div class="flex items-center justify-between">
+        <span class="text-yellow-400 font-bold text-lg">250 Points</span>
+        <button onclick="redeemReward(250, '🎁 $5 Gift Card')" class="bg-yellow-400 text-black px-4 py-1 rounded hover:bg-yellow-300 font-semibold text-sm transition">Redeem</button>
+      </div>
+    </div>
+
+    <!-- Reward Item 2 -->
+    <div class="reward-card p-6 rounded-xl">
+      <h3 class="text-xl font-semibold mb-2">🍫 Free Chocolate Bar</h3>
+      <p class="text-sm mb-3">Enjoy a sweet treat of your choice.</p>
+      <div class="flex items-center justify-between">
+        <span class="text-yellow-400 font-bold text-lg">75 Points</span>
+        <button onclick="redeemReward(75,'🍫 Free Chocolate Bar')" class="bg-yellow-400 text-black px-4 py-1 rounded hover:bg-yellow-300 font-semibold text-sm transition">Redeem</button>
+      </div>
+    </div>
+
+    <!-- Reward Item 3 -->
+    <div class="reward-card p-6 rounded-xl">
+      <h3 class="text-xl font-semibold mb-2">☕ Coffee Coupon</h3>
+      <p class="text-sm mb-3">Grab a cup of your favorite brew on us.</p>
+      <div class="flex items-center justify-between">
+        <span class="text-yellow-400 font-bold text-lg">120 Points</span>
+        <button onclick="redeemReward(120,'☕ Coffee Coupon')" class="bg-yellow-400 text-black px-4 py-1 rounded hover:bg-yellow-300 font-semibold text-sm transition">Redeem</button>
+
+      </div>
+    </div>
+
+    <!-- Reward Item 4 -->
+    <div class="reward-card p-6 rounded-xl">
+      <h3 class="text-xl font-semibold mb-2">📦 Free Shipping Voucher</h3>
+      <p class="text-sm mb-3">Use this for free shipping on your next order.</p>
+      <div class="flex items-center justify-between">
+        <span class="text-yellow-400 font-bold text-lg">150 Points</span>
+        <button onclick="redeemReward(150,'📦 Free Shipping Voucher')" class="bg-yellow-400 text-black px-4 py-1 rounded hover:bg-yellow-300 font-semibold text-sm transition">Redeem</button>
+
+      </div>
+    </div>
+
+    <!-- Reward Item 5 -->
+    <div class="reward-card p-6 rounded-xl">
+      <h3 class="text-xl font-semibold mb-2">🧼 Home Essentials Pack</h3>
+      <p class="text-sm mb-3">Cleaning and hygiene supplies for your home.</p>
+      <div class="flex items-center justify-between">
+        <span class="text-yellow-400 font-bold text-lg">400 Points</span>
+        <button onclick="redeemReward(400,'🧼 Home Essentials Pack')" class="bg-yellow-400 text-black px-4 py-1 rounded hover:bg-yellow-300 font-semibold text-sm transition">Redeem</button>
+
+      </div>
+    </div>
+
+    <!-- Reward Item 6 -->
+    <div class="reward-card p-6 rounded-xl">
+      <h3 class="text-xl font-semibold mb-2">📅 Custom Calendar</h3>
+      <p class="text-sm mb-3">Personalize and print your 2025 calendar.</p>
+      <div class="flex items-center justify-between">
+        <span class="text-yellow-400 font-bold text-lg">300 Points</span>
+        <button onclick="redeemReward(300,'📅 Custom Calendar')" class="bg-yellow-400 text-black px-4 py-1 rounded hover:bg-yellow-300 font-semibold text-sm transition">Redeem</button>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="w-full text-center py-4 font-semibold mt-12 shadow-inner" style="background:transparent;backdrop-filter:blur(0);color:inherit;">
+    &copy; LoyalMart 2025.All rights reserved
+  </footer>
+
+  <!-- Apply saved theme -->
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('theme') || 'theme-dark';
+      document.documentElement.classList.add(savedTheme);
+    });
+  </script>
+  <!-- Keep rest of your file unchanged until the end of the body -->
+
+<!-- Inject this before </body> -->
+<script src="points.js"></script>
+<script>
+  function redeemReward(cost, rewardName) {
+    const current = getTotalPoints();
+    if (current >= cost) {
+      const updated = current - cost;
+      localStorage.setItem("totalPoints", updated);
+
+      // Save redemption record
+      const history = JSON.parse(localStorage.getItem("redemptionHistory")) || [];
+      history.unshift({
+        name: rewardName,
+        cost: cost,
+        time: new Date().toLocaleString()
+      });
+      localStorage.setItem("redemptionHistory", JSON.stringify(history));
+
+      alert(`🎉 Redeemed "${rewardName}" for ${cost} points!`);
+      if (document.getElementById("totalPoints")) {
+        document.getElementById("totalPoints").innerText = updated;
+      }
+      renderRedemptionHistory(); // update list if present
+    } else {
+      alert(`❌ Not enough points to redeem "${rewardName}". You need ${cost}, but have ${current}.`);
+    }
+  }
+
+  function renderRedemptionHistory() {
+    const container = document.getElementById("historyList");
+    if (!container) return;
+    const history = JSON.parse(localStorage.getItem("redemptionHistory")) || [];
+
+    container.innerHTML = history.length === 0
+      ? "<p class='text-sm text-gray-400'>No redemptions yet.</p>"
+      : history.map(item => `
+        <li class="mb-2 border-b pb-1">
+          <strong>${item.name}</strong> - ${item.cost} pts<br>
+          <small class="text-xs text-gray-400">${item.time}</small>
+        </li>
+      `).join("");
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.getElementById("totalPoints")) {
+      document.getElementById("totalPoints").innerText = getTotalPoints();
+    }
+    renderRedemptionHistory();
+  });
+</script>
+
+
+</body>
+</html>

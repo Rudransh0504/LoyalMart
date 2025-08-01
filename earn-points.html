@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Earn Points | LoyalMart</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html {
+      transition: background-color 0.4s ease, color 0.4s ease;
+    }
+    .theme-dark {
+      background: linear-gradient(to right, #0d1117, #1e3a8a);
+      color: #ffc220;
+      background-image:
+        linear-gradient(to right, #0d1117, #1e3a8a),
+        repeating-linear-gradient(135deg, rgba(255, 221, 77, 0.07) 0px, rgba(255, 221, 77, 0.07) 2px, transparent 2px, transparent 24px);
+      background-blend-mode: lighten;
+    }
+    .theme-light {
+      background: linear-gradient(120deg, #f4f6fa 0%, #e5e7eb 100%);
+      color: #000;
+      background-image:
+        linear-gradient(120deg, #f4f6fa 0%, #e5e7eb 100%),
+        repeating-radial-gradient(circle, #d1d5db 0, #d1d5db 1.5px, transparent 1.5px, transparent 28px);
+      background-blend-mode: lighten;
+    }
+    .card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+    .theme-dark .card {
+      background-color: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .theme-light .card {
+      background-color: rgba(0, 0, 0, 0.03);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    .theme-light .card h3 {
+      color: #111;
+    }
+    .theme-dark .card h3 {
+      color: #ffc220;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col items-center px-4 py-10 font-sans transition-all duration-500">
+
+  <!-- Header -->
+  <div class="w-full max-w-5xl flex flex-col items-center mb-6">
+    
+    <div class="self-end">
+      <a href="index.html" class="text-sm bg-yellow-400 text-black px-4 py-2 rounded hover:bg-yellow-300 font-semibold transition">Back to Dashboard</a>
+    </div>
+  </div>
+
+  <!-- Page Title -->
+  <h1 class="text-3xl font-bold mb-8">Ways to Earn Points</h1>
+
+  <!-- Cards -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl">
+    <!-- Card 1 -->
+    <div class="card rounded-xl p-6">
+      <h3 class="text-xl font-semibold mb-2">🎯 Complete a Weekly Challenge</h3>
+      <p class="text-sm mb-2">Finish 3 purchases this week to earn bonus points.</p>
+      <span class="text-yellow-400 font-bold text-lg">+50 Points</span>
+    </div>
+    <a href="weekly-challenges.html" class="block hover:scale-105 transition-transform duration-300">
+  <div class="bg-blue-800 rounded-xl p-6 shadow-md text-yellow-300 flex flex-col gap-2">
+    <div class="text-3xl">🔥</div>
+    <h2 class="text-xl font-semibold">Weekly Challenges</h2>
+    <p>Complete tasks every week and earn bonus points.</p>
+  </div>
+</a>
+
+
+    <!-- Card 2 -->
+    <div class="card rounded-xl p-6">
+      <h3 class="text-xl font-semibold mb-2">🛍 Refer a Friend</h3>
+      <p class="text-sm mb-2">Get rewarded when your friends sign up and shop.</p>
+      <span class="text-yellow-400 font-bold text-lg">+100 Points</span>
+    </div>
+    <!--games card-->
+    <a href="games.html" class="block hover:scale-105 transition-transform duration-300">
+  <div class="bg-blue-800 rounded-xl p-6 shadow-md text-yellow-300 flex flex-col gap-2">
+    <div class="text-3xl">🎯</div>
+    <h2 class="text-xl font-semibold">Play & Earn</h2>
+    <p>Play games, win points, and unlock exclusive badges!</p>
+  </div>
+</a>
+
+
+    <!-- Card 3 -->
+    <div class="card rounded-xl p-6">
+      <h3 class="text-xl font-semibold mb-2">📝 Write a Review</h3>
+      <p class="text-sm mb-2">Review purchased items to earn points and help others.</p>
+      <span class="text-yellow-400 font-bold text-lg">+15 Points</span>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="card rounded-xl p-6">
+      <h3 class="text-xl font-semibold mb-2">📦 Return Empty Packaging</h3>
+      <p class="text-sm mb-2">Earn green points by returning recyclables to the store.</p>
+      <span class="text-yellow-400 font-bold text-lg">+25 Points</span>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="card rounded-xl p-6">
+      <h3 class="text-xl font-semibold mb-2">📱 Use the Mobile App</h3>
+      <p class="text-sm mb-2">Shop using the Walmart app and unlock app-only rewards.</p>
+      <span class="text-yellow-400 font-bold text-lg">+20 Points</span>
+    </div>
+
+    <!-- Card 6 -->
+    <div class="card rounded-xl p-6">
+      <h3 class="text-xl font-semibold mb-2">📧 Join Email Program</h3>
+      <p class="text-sm mb-2">Subscribe to updates and get rewarded instantly.</p>
+      <span class="text-yellow-400 font-bold text-lg">+10 Points</span>
+    </div>
+  </div>
+
+  <footer class="w-full text-center py-4 font-semibold mt-12 shadow-inner" style="background:transparent;backdrop-filter:blur(0);color:inherit;">
+    &copy; LoyalMart 2025.All rights reserved
+  </footer>
+
+  <script>
+    // Apply saved theme on load
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('theme') || 'theme-dark';
+      document.documentElement.classList.add(savedTheme);
+    });
+  </script>
+</body>
+</html>

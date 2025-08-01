@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rock Paper Scissors | LoyalMart</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: linear-gradient(to right, #0d1117, #1e3a8a);
+      color: #ffc220;
+      background-image:
+        linear-gradient(to right, #0d1117, #1e3a8a),
+        repeating-linear-gradient(135deg, rgba(255, 221, 77, 0.07) 0px, rgba(255, 221, 77, 0.07) 2px, transparent 2px, transparent 24px);
+      background-blend-mode: lighten;
+    }
+    .rps-card {
+      background: rgba(17,24,39,0.92);
+      border-radius: 1.25rem;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18), 0 1.5px 6px 0 rgba(0,0,0,0.10);
+      border: 2px solid #ffc220;
+      padding: 2.5rem 2rem;
+      margin-top: 3.5rem;
+      margin-bottom: 2rem;
+      transition: box-shadow 0.3s;
+    }
+    .rps-card:hover {
+      box-shadow: 0 16px 48px 0 rgba(255, 194, 32, 0.18), 0 3px 12px 0 rgba(0,0,0,0.13);
+    }
+    .rps-btn {
+      font-size: 1.25rem;
+      padding: 0.75rem 2.5rem;
+      border-radius: 0.75rem;
+      font-weight: bold;
+      box-shadow: 0 2px 8px 0 rgba(255, 194, 32, 0.15);
+      background: linear-gradient(90deg, #ffc220 60%, #fbbf24 100%);
+      color: #1e293b;
+      border: none;
+      transition: transform 0.18s, box-shadow 0.18s, background 0.18s;
+    }
+    .rps-btn:hover {
+      background: linear-gradient(90deg, #fbbf24 0%, #ffc220 100%);
+      transform: translateY(-4px) scale(1.07) rotate(-2deg);
+      box-shadow: 0 8px 24px 0 rgba(255, 194, 32, 0.22);
+      color: #000;
+    }
+    .rps-score {
+      font-size: 1.15rem;
+      color: #ffc220;
+      background: rgba(31, 38, 135, 0.18);
+      border-radius: 0.5rem;
+      padding: 0.5rem 1.5rem;
+      margin-bottom: 1.5rem;
+      display: inline-block;
+    }
+    .rps-result {
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: #fbbf24;
+      margin-bottom: 1.2rem;
+      min-height: 2.2em;
+      letter-spacing: 0.5px;
+      text-shadow: 0 2px 8px #ffc22044;
+    }
+    .rps-reset {
+      border: 2px solid #ffc220;
+      background: transparent;
+      color: #ffc220;
+      border-radius: 0.75rem;
+      padding: 0.5rem 1.5rem;
+      font-weight: 600;
+      transition: background 0.18s, color 0.18s;
+      margin-bottom: 1.5rem;
+    }
+    .rps-reset:hover {
+      background: #ffc220;
+      color: #1e293b;
+    }
+    .rps-back {
+      color: #ffc220;
+      text-decoration: underline;
+      font-size: 1rem;
+      transition: color 0.18s;
+    }
+    .rps-back:hover {
+      color: #fbbf24;
+    }
+  </style>
+</head>
+<body class="min-h-screen font-sans p-0">
+  <div class="absolute top-0 right-0 mt-4 mr-6 z-10">
+    <a href="games.html" class="text-sm bg-yellow-400 text-black px-4 py-2 rounded hover:bg-yellow-300 font-semibold transition flex items-center gap-2 shadow">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+      Back 
+    </a>
+  </div>
+  <div class="max-w-xl mx-auto text-center rps-card">
+    <h1 class="text-4xl font-bold mb-6">Rock Paper Scissors</h1>
+    <div class="flex justify-center gap-4 mb-6">
+      <button onclick="playRPS('rock')" class="rps-btn">🪨 Rock</button>
+      <button onclick="playRPS('paper')" class="rps-btn">📄 Paper</button>
+      <button onclick="playRPS('scissors')" class="rps-btn">✂️ Scissors</button>
+    </div>
+    <div id="rpsResult" class="rps-result">Make your move!</div>
+    <div id="rpsScore" class="rps-score">You: 0 | Computer: 0</div>
+    <button onclick="resetScore()" class="rps-reset">🔄 Reset Score</button>
+  </div>
+  <!-- Points Display Centered and Styled -->
+  <div class="flex justify-center mt-8">
+    <div class="px-8 py-4 rounded-xl shadow-lg bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-500 text-black text-2xl font-extrabold border-4 border-yellow-600 tracking-wide">
+      Total Points: <span id="totalPoints" class="text-blue-900 drop-shadow-lg">0</span>
+    </div>
+  </div>
+
+<!-- Add JS scripts -->
+<script src="points.js"></script>
+<script src="rps-game.js"></script>
+<script>
+    // Update total points display
+    document.getElementById("totalPoints").innerText = getTotalPoints();
+</script>
+
+</body>
+</html>

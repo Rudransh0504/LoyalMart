@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Badges | LoyalMart</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html {
+      transition: background-color 0.5s ease, color 0.5s ease;
+    }
+    .theme-dark {
+      background: linear-gradient(to right, #0d1117, #1e3a8a);
+      color: #ffc220;
+      background-image:
+        linear-gradient(to right, #0d1117, #1e3a8a),
+        repeating-linear-gradient(135deg, rgba(255, 221, 77, 0.07) 0px, rgba(255, 221, 77, 0.07) 2px, transparent 2px, transparent 24px);
+      background-blend-mode: lighten;
+    }
+    .theme-light {
+  background: linear-gradient(to bottom right, #e0e7ff, #f8fafc);
+  color: #1f2937;
+  background-image:
+    linear-gradient(to bottom right, #e0e7ff, #f8fafc),
+    repeating-radial-gradient(circle, #cbd5e1 0, #cbd5e1 1.5px, transparent 1.5px, transparent 28px);
+  background-blend-mode: lighten;
+}
+
+    .card-yellow,
+    .card-yellow h1,
+    .card-yellow h2,
+    .card-yellow .text-yellow-400,
+    .card-yellow .text-yellow-300 {
+      color: #ffc220 !important;
+    }
+    .theme-dark .welcome-title {
+      color: #fff !important;
+    }
+    .theme-light .welcome-title {
+      color: #000 !important;
+    }
+    .theme-dark .card-yellow {
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37), 0 1.5px 6px 0 rgba(0,0,0,0.25);
+      border: 3px solid;
+      border-image: linear-gradient(120deg, #ffc220, #0071ce, #ffc220 90%) 1;
+      animation: border-gradient-move 3s linear infinite;
+      background: rgba(17,24,39,0.95);
+    }
+    @keyframes border-gradient-move {
+      0% {
+        border-image-source: linear-gradient(120deg, #ffc220, #0071ce, #ffc220 90%);
+      }
+      100% {
+        border-image-source: linear-gradient(420deg, #ffc220, #0071ce, #ffc220 90%);
+      }
+    }
+    .theme-light .badge-card {
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+}
+.badge-animate img {
+      transition: transform 0.25s cubic-bezier(0.23, 1.15, 0.32, 1), box-shadow 0.25s, filter 0.25s;
+    }
+    .badge-animate:hover img, .badge-animate:focus img {
+      animation: badge-pop 0.7s cubic-bezier(0.23, 1.15, 0.32, 1) both;
+      transform: translateY(-18px) scale(1.12) rotate(-8deg);
+      box-shadow: 0 12px 36px 0 rgba(31, 38, 135, 0.22), 0 2px 8px 0 rgba(0,0,0,0.13);
+      filter: brightness(1.10) saturate(1.25);
+      z-index: 2;
+    }
+    .badge-animate {
+      cursor: pointer;
+    }
+    @keyframes badge-pop {
+      0% {
+        transform: scale(0.7) rotate(-10deg);
+        opacity: 0;
+      }
+      60% {
+        transform: scale(1.15) rotate(3deg);
+        opacity: 1;
+      }
+      80% {
+        transform: scale(0.95) rotate(-2deg);
+      }
+      100% {
+        transform: scale(1) rotate(0deg);
+      }
+    }
+
+  </style>
+</head>
+<body class="theme-dark min-h-screen font-sans transition-all duration-500">
+  <div class="p-6 max-w-5xl mx-auto relative">
+    <div class="absolute top-0 right-0 mt-2 mr-2 z-10">
+      <a href="index.html" class="text-sm bg-yellow-400 text-black px-4 py-2 rounded hover:bg-yellow-300 font-semibold transition flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        Back to Dashboard
+      </a>
+    </div>
+    <div class="flex flex-col items-center mb-6 mt-2">
+     
+      <h1 class="text-3xl font-bold mb-4 welcome-title text-yellow-400 dark:text-yellow-400 text-center theme-light:text-[#0071ce]">Your Badges</h1>
+    </div>
+
+    <section class="mb-8">
+      <h2 class="text-2xl font-semibold mb-3 card-yellow">Badges Earned</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="flex flex-col items-center p-4 bg-[#f9fafb] dark:bg-[#1e3a8a] rounded-xl shadow-md border border-[#e5e7eb] dark:border-none text-black dark:text-yellow-300 font-semibold badge-animate">
+          <img src="assets/87648-valorant-bronze-3.png" alt="Bronze Badge" class="w-16 h-16 mb-2 object-contain rounded-full bg-gray-200 dark:bg-gray-700" />
+          <p class="mt-2 font-bold">Bronze</p><p class="text-sm">3 earned</p>
+        </div>
+        <div class="flex flex-col items-center p-4 bg-[#f9fafb] dark:bg-[#1e3a8a] rounded-xl shadow-md border border-[#e5e7eb] dark:border-none text-black dark:text-yellow-300 font-semibold badge-animate">
+          <img src="assets/silver.png" alt="Silver Badge" class="w-16 h-16 mb-2 object-contain rounded-full bg-gray-200 dark:bg-gray-700" />
+          <p class="mt-2 font-bold">Silver</p><p class="text-sm">2 earned</p>
+        </div>
+        <div class="flex flex-col items-center p-4 bg-[#f9fafb] dark:bg-[#1e3a8a] rounded-xl shadow-md border border-[#e5e7eb] dark:border-none text-black dark:text-yellow-300 font-semibold badge-animate">
+          <img src="assets/gold.png" alt="Gold Badge" class="w-16 h-16 mb-2 object-contain rounded-full bg-gray-200 dark:bg-gray-700" />
+          <p class="mt-2 font-bold">Gold</p><p class="text-sm">1 earned</p>
+        </div>
+        <div class="flex flex-col items-center p-4 bg-[#f9fafb] dark:bg-[#1e3a8a] rounded-xl shadow-md border border-[#e5e7eb] dark:border-none text-black dark:text-yellow-300 font-semibold badge-animate">
+          <img src="assets/platinum.png" alt="Platinum Badge" class="w-16 h-16 mb-2 object-contain rounded-full bg-gray-200 dark:bg-gray-700" />
+          <p class="mt-2 font-bold">Platinum</p><p class="text-sm">0 earned</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-8">
+      <h2 class="text-2xl font-semibold mb-2 card-yellow">Purpose of Badges</h2>
+      <p class="text-base theme-dark:text-gray-300 theme-light:text-black">
+Badges help you track your progress, celebrate milestones, and stay motivated as you earn loyalty points.</p>
+    </section>
+
+    <section class="mb-8">
+      <h2 class="text-2xl font-semibold mb-2 card-yellow">How to Earn Badges</h2>
+      <ul class="list-disc list-inside theme-dark:text-gray-300 theme-light:text-black">
+
+        <li>Earn points by shopping and participating in promotions.</li>
+        <li>Reach specific point milestones to unlock new badges.</li>
+        <li>Participate in seasonal or bonus challenges.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2 class="text-2xl font-semibold mb-3 card-yellow">All Available Badges</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div class="flex flex-col items-center badge-animate">
+  <img src="assets/87648-valorant-bronze-3.png" alt="Bronze Badge" class="w-24 h-24 object-contain mb-2" />
+  <p class="font-bold text-black dark:text-yellow-300 theme-light:text-black theme-dark:text-yellow-300">Bronze</p>
+</div>
+
+        <div class="flex flex-col items-center badge-animate">
+  <img src="assets/silver.png" alt="Silver Badge" class="w-24 h-24 object-contain mb-2" />
+  <p class="font-bold text-black dark:text-yellow-300 theme-light:text-black theme-dark:text-yellow-300">Silver</p>
+</div>
+
+        <div class="flex flex-col items-center badge-animate">
+  <img src="assets/gold.png" alt="Gold Badge" class="w-24 h-24 object-contain mb-2" />
+  <p class="font-bold text-black dark:text-yellow-300 theme-light:text-black theme-dark:text-yellow-300">Gold</p>
+</div>
+        <div class="flex flex-col items-center badge-animate">
+          <img src="assets/platinum.png" alt="Platinum Badge" class="w-24 h-24 object-contain mb-2" />
+          <p class="font-bold text-black dark:text-yellow-300 theme-light:text-black theme-dark:text-yellow-300">Platinum</p>
+        </div>
+        <div class="flex flex-col items-center badge-animate">
+          <img src="assets/streak.png" alt="Streak Master Badge" class="w-24 h-24 object-contain mb-2" />
+          <p class="font-bold text-black dark:text-yellow-300 theme-light:text-black theme-dark:text-yellow-300">Streak Master</p>
+        </div>
+        <div class="flex flex-col items-center badge-animate">
+          <img src="assets/challenge.png" alt="Challenge Winner Badge" class="w-24 h-24 object-contain mb-2" />
+          <p class="font-bold text-black dark:text-yellow-300 theme-light:text-black theme-dark:text-yellow-300">Challenge Winner</p>
+        </div>
+        <div class="flex flex-col items-center badge-animate">
+          <img src="assets/gift-reedemer.png" alt="Gift Redeemer Badge" class="w-24 h-24 object-contain mb-2" />
+          <p class="font-bold text-black dark:text-yellow-300 theme-light:text-black theme-dark:text-yellow-300">Gift Redeemer</p>
+        </div>
+        <div class="flex flex-col items-center badge-animate">
+  <img src="assets/top-performer.png" alt="Top Performer" class="w-24 h-24 object-contain mb-2" />
+  <p class="font-bold text-black dark:text-yellow-300 theme-light:text-black theme-dark:text-yellow-300">Top Performer</p>
+</div>
+      </div>
+    </section>
+  </div>
+  <!-- Theme toggle button and script removed. Theme is now controlled only from index.html via localStorage. -->
+  <script>
+    // On load, set theme from localStorage if available (no toggle button)
+    const html = document.documentElement;
+    const body = document.body;
+    let isDark = true;
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      html.classList.remove('theme-dark', 'theme-light');
+      body.classList.remove('theme-dark', 'theme-light');
+      html.classList.add(savedTheme);
+      body.classList.add(savedTheme);
+      isDark = savedTheme === 'theme-dark';
+    }
+  </script>
+  <footer class="w-full text-center py-4 font-semibold mt-12 shadow-inner" style="background:transparent;backdrop-filter:blur(0);color:inherit;">
+    &copy; LoyalMart 2025.All rights reserved
+  </footer>
+</body>
+</html>

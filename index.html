@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LoyalMart Dashboard</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    html, body {
+      transition: background-color 0.5s, color 0.5s;
+    }
+    .theme-fade {
+      transition: background-color 0.5s, color 0.5s, filter 0.5s;
+      filter: brightness(1.03) saturate(1.05);
+    }
+    
+    .theme-dark {
+      background: linear-gradient(to right, #0d1117, #1e3a8a);
+      color: #ffc220;
+      /* Subtle light yellow pattern overlay */
+      background-image:
+        linear-gradient(to right, #0d1117, #1e3a8a),
+        repeating-linear-gradient(135deg, rgba(255, 221, 77, 0.07) 0px, rgba(255, 221, 77, 0.07) 2px, transparent 2px, transparent 24px);
+      background-blend-mode: lighten;
+    }
+    .theme-light {
+      background: linear-gradient(120deg, #f4f6fa 0%, #e5e7eb 100%);
+      color: #000;
+      /* More visible subtle gray dot pattern overlay */
+      background-image:
+        linear-gradient(120deg, #f4f6fa 0%, #e5e7eb 100%),
+        repeating-radial-gradient(circle, #d1d5db 0, #d1d5db 1.5px, transparent 1.5px, transparent 28px);
+      background-blend-mode: lighten;
+    }
+    /* Navbar center links always white */
+    .navbar-center {
+      color: #fff !important;
+    }
+    /* Keep navbar right (account) white in both themes */
+    .navbar-account {
+      color: #fff !important;
+    }
+    /* Card text always yellow */
+    .card-yellow,
+    .card-yellow h1,
+    .card-yellow h2,
+    .card-yellow .text-yellow-400,
+    .card-yellow .text-yellow-300 {
+      color: #ffc220 !important;
+    }
+    /* Welcome text color: black in light, white in dark */
+    .theme-dark .welcome-title {
+      color: #fff !important;
+    }
+    .theme-light .welcome-title {
+      color: #000 !important;
+    }
+    /* Navbar subtle transparency in dark mode */
+    .theme-dark .navbar-walmart {
+      background-color: rgba(0, 113, 206, 0.85) !important;
+      backdrop-filter: blur(4px);
+    }
+    /* Card depth and animated gradient border in dark mode */
+    .theme-dark .card-yellow {
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37), 0 1.5px 6px 0 rgba(0,0,0,0.25);
+      border: 3px solid;
+      border-image: linear-gradient(120deg, #ffc220, #0071ce, #ffc220 90%) 1;
+      animation: border-gradient-move 3s linear infinite;
+      background: rgba(17,24,39,0.95);
+    }
+    @keyframes border-gradient-move {
+      0% {
+        border-image-source: linear-gradient(120deg, #ffc220, #0071ce, #ffc220 90%);
+      }
+      100% {
+        border-image-source: linear-gradient(420deg, #ffc220, #0071ce, #ffc220 90%);
+      }
+    }
+    
+   /* Secondary navbar with light gray transparent background (same in both themes) */
+.secondary-navbar {
+  background-color: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08); /* single soft shadow */
+  isolation: isolate;
+}
+.secondary-navbar::after {
+  display: none;
+}
+
+ </style>
+</head>
+<body class="theme-dark min-h-screen font-sans transition-all duration-500">
+
+  <!-- Navbar -->
+  <nav class="navbar-walmart bg-[#0071ce] text-yellow-400 flex justify-between items-center px-6 h-16 shadow-md">
+    <!-- Left: Walmart Logo -->
+    <div class="flex items-center space-x-3">
+      <img src="assets/loyalmart logo.png" alt="LoyalMart Logo" class="max-h-full object-contain" style="height: 130px;">
+    </div>
+
+    <!-- Right: Theme Toggle + Sign In -->
+    <div class="flex items-center space-x-4 navbar-account">
+      <!-- Toggle Button -->
+      <button id="themeToggle" class="w-9 h-9 rounded-md flex items-center justify-center transition duration-300 bg-[#0071ce] hover:bg-[#0071ce] theme-dark:bg-[rgba(0,113,206,0.85)] theme-dark:hover:bg-[rgba(0,113,206,0.85)]" aria-label="Toggle Theme">
+        <span id="themeIcon">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+          </svg>
+        </span>
+      </button>
+
+      <div class="flex items-center space-x-2 cursor-pointer" onclick="window.location.href='login.html'">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A9.953 9.953 0 0112 15c2.21 0 4.243.714 5.879 1.804M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+        <div>
+          <p class="text-sm">Sign In</p>
+          <p class="font-bold leading-none">Account</p>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Secondary Navbar -->
+  <nav class="secondary-navbar border-b border-gray-200 w-full flex justify-center items-center px-6 py-2 shadow-sm z-10">
+    <div class="flex gap-8 text-base font-semibold text-gray-800">
+      <a href="earn-points.html" class="hover:text-[#0071ce] transition">Earn Points</a>
+      <a href="leaderboard.html" class="hover:text-[#0071ce] transition">View Leaderboard</a>
+      <a href="reward-shop.html" class="hover:text-[#0071ce] transition">Reward Shop</a>
+      <a href="my-rewards.html" class="hover:text-[#0071ce] transition">My Rewards</a>
+      <a href="badges.html" class="hover:text-[#0071ce] transition">Badges</a>
+
+    </div>
+  </nav>
+
+  <!-- Dashboard -->
+  <div class="p-6">
+    <h1 class="text-3xl font-bold text-yellow-400 mb-6 welcome-title">Welcome to Your Loyalty Dashboard</h1>
+    <!-- Level Progress Section -->
+<section class="mb-10">
+  <div class="rounded-xl overflow-hidden shadow-lg p-6 bg-gradient-to-r from-[#0071ce] to-indigo-600 text-white relative">
+    <div class="flex justify-between items-center mb-4">
+      <div class="flex items-center gap-3">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-yellow-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <circle cx="12" cy="8" r="5" fill="#FFD700" stroke="#b45309" stroke-width="1.5"/>
+          <rect x="9.5" y="13" width="5" height="6" rx="1.5" fill="#e5e7eb" stroke="#b45309" stroke-width="1.2"/>
+          <path d="M12 13V9" stroke="#b45309" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M10.5 19.5L12 18L13.5 19.5" stroke="#b45309" stroke-width="1.2" stroke-linecap="round"/>
+          <circle cx="12" cy="8" r="2" fill="#fff"/>
+        </svg>
+        <div>
+          <p class="text-lg font-semibold">Level 5</p>
+          <p class="text-sm text-white/80">2,150 / 3,000 XP</p>
+        </div>
+      </div>
+      <div class="text-right">
+        <p class="text-xs uppercase text-white/60">Next Level</p>
+        <p class="text-xl font-bold">850</p>
+        <p class="text-xs text-white/60">XP remaining</p>
+      </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="h-4 w-full bg-white/30 rounded-full overflow-hidden">
+      <div class="h-full bg-yellow-400 transition-all duration-700" style="width: 72%;"></div>
+    </div>
+
+    <!-- Footer Stats -->
+    <div class="flex justify-between text-sm mt-2 text-white/90">
+      <span>Level 5</span>
+      <span> 72% Complete</span>
+      <span> Level 6</span>
+    </div>
+  </div>
+</section>
+
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Gauge Chart -->
+      <div class="bg-[#0071ce] rounded-xl p-4 shadow-md card-yellow">
+        <h2 class="text-xl font-semibold text-yellow-300 mb-4">Points Overview</h2>
+        <div class="relative w-full max-w-sm mx-auto">
+          <canvas id="pointsGaugeChart"></canvas>
+          <div class="absolute inset-0 flex items-center justify-center">
+            <span id="pointsText" class="text-5xl font-extrabold text-yellow-400 tracking-tight drop-shadow-lg" style="top: 55%; left: 50%; transform: translate(-50%, -40%); position: absolute;">0</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Badges Chart -->
+      <div class="bg-[#0071ce] rounded-xl p-4 shadow-md card-yellow">
+        <h2 class="text-xl font-semibold text-yellow-300 mb-2">Badges Earned</h2>
+        <canvas id="badgesChart"></canvas>
+      </div>
+    </div>
+  </div>
+  
+  
+
+  <script>
+    const usedPoints = 230;
+    const maxPoints = 500;
+
+    new Chart(document.getElementById('pointsGaugeChart'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Used', 'Remaining'],
+        datasets: [{
+          data: [usedPoints, maxPoints - usedPoints],
+          backgroundColor: ['#ffc220', '#1e3a8a'],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        rotation: -90,
+        circumference: 180,
+        cutout: '80%',
+        plugins: {
+          legend: { display: false },
+          tooltip: { enabled: false }
+        }
+      }
+    });
+
+    new Chart(document.getElementById('badgesChart'), {
+      type: 'bar',
+      data: {
+        labels: ['Bronze', 'Silver', 'Gold', 'Platinum'],
+        datasets: [{
+          label: 'Badges',
+          data: [3, 2, 1, 0],
+          backgroundColor: ['#cd7f32', '#c0c0c0', '#ffd700', '#e5e4e2']
+        }]
+      },
+      options: {
+        plugins: { legend: { labels: { color: '#ffc220' } } },
+        scales: {
+          x: { ticks: { color: '#ffc220' }, grid: { color: '#ffffff20' } },
+          y: { ticks: { color: '#ffc220' }, grid: { color: '#ffffff20' } }
+        }
+      }
+    });
+
+    // Theme toggle logic
+    const toggleBtn = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const html = document.documentElement;
+    const body = document.body;
+    let isDark = true;
+
+    // On load, set theme from localStorage if available
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      html.classList.remove('theme-dark', 'theme-light');
+      body.classList.remove('theme-dark', 'theme-light');
+      html.classList.add(savedTheme);
+      body.classList.add(savedTheme);
+      isDark = savedTheme === 'theme-dark';
+      // Set correct icon
+      if (!isDark) {
+        themeIcon.innerHTML = `
+          <svg xmlns='http://www.w3.org/2000/svg' class='h-5 w-5 text-yellow-500' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+            <circle cx='12' cy='12' r='5' fill='#fbbf24'/>
+            <g stroke='#fbbf24' stroke-width='2'>
+              <line x1='12' y1='1' x2='12' y2='3'/>
+              <line x1='12' y1='21' x2='12' y2='23'/>
+              <line x1='4.22' y1='4.22' x2='5.64' y2='5.64'/>
+              <line x1='18.36' y1='18.36' x2='19.78' y2='19.78'/>
+              <line x1='1' y1='12' x2='3' y2='12'/>
+              <line x1='21' y1='12' x2='23' y2='12'/>
+              <line x1='4.22' y1='19.78' x2='5.64' y2='18.36'/>
+              <line x1='18.36' y1='5.64' x2='19.78' y2='4.22'/>
+            </g>
+          </svg>
+        `;
+      } else {
+        themeIcon.innerHTML = `
+          <svg xmlns='http://www.w3.org/2000/svg' class='h-5 w-5 text-white' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+            <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z' />
+          </svg>
+        `;
+      }
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      html.classList.add('theme-fade');
+      body.classList.add('theme-fade');
+      setTimeout(() => {
+        isDark = !isDark;
+        if (!isDark) {
+          html.classList.remove('theme-dark');
+          html.classList.add('theme-light');
+          body.classList.remove('theme-dark');
+          body.classList.add('theme-light');
+          localStorage.setItem('theme', 'theme-light');
+          // Change icon to sun
+          themeIcon.innerHTML = `
+            <svg xmlns='http://www.w3.org/2000/svg' class='h-5 w-5 text-yellow-500' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+              <circle cx='12' cy='12' r='5' fill='#fbbf24'/>
+              <g stroke='#fbbf24' stroke-width='2'>
+                <line x1='12' y1='1' x2='12' y2='3'/>
+                <line x1='12' y1='21' x2='12' y2='23'/>
+                <line x1='4.22' y1='4.22' x2='5.64' y2='5.64'/>
+                <line x1='18.36' y1='18.36' x2='19.78' y2='19.78'/>
+                <line x1='1' y1='12' x2='3' y2='12'/>
+                <line x1='21' y1='12' x2='23' y2='12'/>
+                <line x1='4.22' y1='19.78' x2='5.64' y2='18.36'/>
+                <line x1='18.36' y1='5.64' x2='19.78' y2='4.22'/>
+              </g>
+            </svg>
+          `;
+        } else {
+          html.classList.remove('theme-light');
+          html.classList.add('theme-dark');
+          body.classList.remove('theme-light');
+          body.classList.add('theme-dark');
+          localStorage.setItem('theme', 'theme-dark');
+          // Change icon to moon
+          themeIcon.innerHTML = `
+            <svg xmlns='http://www.w3.org/2000/svg' class='h-5 w-5 text-white' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+              <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z' />
+            </svg>
+          `;
+        }
+        setTimeout(() => {
+          html.classList.remove('theme-fade');
+          body.classList.remove('theme-fade');
+        }, 500);
+      }, 10);
+    });
+  </script>
+  <script src="points.js"></script>
+<script>
+  const total = getTotalPoints();
+  const pointsEl = document.getElementById("pointsText");
+  if (pointsEl) pointsEl.innerText = total;
+</script>
+
+  <footer class="w-full text-center py-4 font-semibold mt-12 shadow-inner" style="background:transparent;backdrop-filter:blur(0);color:inherit;">
+    &copy; LoyalMart 2025.All rights reserved
+  </footer>
+</body>
+</html>
